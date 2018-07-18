@@ -32,4 +32,3 @@ if __name__=='__main__':
 		cmd = Command()
 	except rospy.ROSInterruptException:
 		pass
-
