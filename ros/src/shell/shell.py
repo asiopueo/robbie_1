@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 ####################################################################
 #
 #   Node which requests commands and publishes on a twist topic
