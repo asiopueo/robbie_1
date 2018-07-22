@@ -1,0 +1,9 @@
+<?xml version="1.0">
+<launch>
+	<!-- Example entry -->
+	<include file="$(find robbie_)/launch/robbie_.launch" />
+
+	<!-- -->
+	<param name="a_param_name" textfile="$(find bla_asd)/some.yaml" />
+
+</launch>
