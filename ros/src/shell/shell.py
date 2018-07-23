@@ -12,7 +12,7 @@ import math
 import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
-
+from robbie_msgs.msg import command
 
 
 # Helper function
@@ -25,7 +25,7 @@ def parse(arg):
 class Publisher():
     def __init__(self):
         rospy.init_node('robbie_console', anonymous=False)
-        self.publisher = rospy.Publisher('command', String, queue_size=10)
+        self.publisher = rospy.Publisher('command', command, queue_size=10)
 
         # Default values:
         self.motorRPM = 80
@@ -33,11 +33,14 @@ class Publisher():
         self.tireCirc = math.pi * self.tireDiameter
 
     def forward(self, length):
-        print("Move forward by %3.1f cm." % length[0])
-        rounds = length[0] / self.tireCirc
-        time = rounds / self.motorRPM
+        #print("Move forward by %3.1f cm." % length[0])
+        #rounds = length[0] / self.tireCirc
+        #time = rounds / self.motorRPM
         #return time, motorRPM
-        self.publisher.publish('AfD')
+        foo = command()
+        foo.duration = 3.2
+        foo.rpm = 80
+        self.publisher.publish(foo)
 
     def backward(self, length):
         print("Move backward by %3.1f cm." % length[0])
