@@ -33,28 +33,32 @@ class Publisher():
         self.tireCirc = math.pi * self.tireDiameter
 
     def forward(self, length):
-        #print("Move forward by %3.1f cm." % length[0])
-        #rounds = length[0] / self.tireCirc
-        #time = rounds / self.motorRPM
-        #return time, motorRPM
+        print("Move forward by %3.1f cm." % length[0])
+        rounds = length[0] / self.tireCirc
         foo = command()
-        foo.duration = 3.2
-        foo.rpm = 80
+        foo.duration = rounds / self.motorRPM
+        foo.rpm_left = self.motorRPM
+        foo.rpm_right = self.motorRPM
         self.publisher.publish(foo)
 
     def backward(self, length):
         print("Move backward by %3.1f cm." % length[0])
-        #rounds = length / tireCirc
-        #time = rounds / motorRPM 
-        #return time, motorRPM
+        rounds = length[0] / self.tireCirc
+        foo = command()
+        foo.duration = rounds / self.motorRPM
+        foo.rpm_left = -self.motorRPM
+        foo.rpm_right = -self.motorRPM
+        self.publisher.publish(foo)
 
     def left(self, deg):
-        print("Turn left")
-        pass
+        print("Turn left by %3.1f degrees." % deg[0])
+        foo = command(4., -self.motorRPM, self.motorRPM)
+        self.publisher.publish(foo)
 
     def right(self, deg):
-        print("Turn right")
-        pass
+        print("Turn right by %3.1f degrees." % deg[0])
+        foo = command(4., self.motorRPM, -self.motorRPM)
+        self.publisher.publish(foo)
 
     def quit(self):
         print('Shutting down node \'robbie_console\'...')
@@ -75,20 +79,19 @@ class Shell(cmd.Cmd):
 
     # Basic commands:
     def do_forward(self, arg):
-        'Move forward by the specified distance [cm]: FORWARD 10'
-        #forward(*parse(arg))
+        'Move forward by the specified distance [cm]: \'forward 10\''
         self.pub.forward(parse(arg))
 
     def do_backward(self, arg):
-        'Move backward by the specified distance [cm]: BACKWARD 10'
+        'Move backward by the specified distance [cm]: \'backward 10\''
         self.pub.backward(parse(arg))
 
     def do_left(self, arg):
-        'Turn left by the specified angle [degree]: LEFT 45'
+        'Turn left by the specified angle [degree]: \'left 45\''
         self.pub.left(parse(arg))
 
     def do_right(self, arg):
-        'Turn right by the specified angle [degree]: RIGHT 45'
+        'Turn right by the specified angle [degree]: \'right 45\''
         self.pub.right(parse(arg))
 
     def do_quit(self, arg):
