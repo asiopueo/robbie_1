@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+	<machine name="asio" address="" password="" env-loader=""/>
+	<machine name="robbie" address="" password="" env-loader=""/>
+	<node machine="asio" pkg="shell" type="shell.py" name="robbie_shell" output="screen"/>
+	<node machine="robbie" address="" password="" env-loader=""/>
+</launch>

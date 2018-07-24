@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-	<node pkg="shell" type="shell.py" name="robbie_shell" output="screen"/>
-</launch>
